@@ -11,7 +11,8 @@ public class Controller : MonoBehaviour
         PlayerAxis,
         MoveDontStop,
         ReverseGravity,
-        Doors
+        Doors,
+        Gravity4Directions
     }
 
     [SerializeField] Player_Stats _playerStats;
@@ -24,6 +25,9 @@ public class Controller : MonoBehaviour
     Vector2 _rayDirection;
     float _jumpForce;
      LayerMask _layer;
+
+    //Dimension 4 directions
+    bool _permiteMove=true;
     
 
     [SerializeField]States _states = States.Default;
@@ -32,6 +36,7 @@ public class Controller : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log(Physics2D.gravity);
         _shakeController = GetComponent<ShakeController>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _rayDirection = Vector2.down;
@@ -46,6 +51,7 @@ public class Controller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4)) _states = States.MoveDontStop;
         if (Input.GetKeyDown(KeyCode.Alpha5)) _states = States.ReverseGravity;
         if (Input.GetKeyDown(KeyCode.Alpha6)) _states = States.Doors;
+        if (Input.GetKeyDown(KeyCode.Alpha7)) _states = States.Gravity4Directions;
 
         switch(_states)
         {
@@ -54,6 +60,10 @@ public class Controller : MonoBehaviour
                 break;
             case States.Doors:
                 
+                break;
+            case States.Gravity4Directions:
+                Jump();
+                Corrutine4Directions();
                 break;
 
             default:
@@ -72,8 +82,11 @@ public class Controller : MonoBehaviour
             case States.MoveDontStop:
                 MovementDontStop();
                 break;
+            case States.Gravity4Directions:
+                if (_permiteMove) Movement();
+                break;
             default:
-                Movement();
+                 Movement();
                 break;
         }
         
@@ -109,9 +122,35 @@ public class Controller : MonoBehaviour
     void Gravity() 
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            _rigidbody2D.gravityScale *= -1; 
+        {
+            _rigidbody2D.gravityScale *= -1;
+            _shakeController.Shake();
+        }
     }
     
+    void Corrutine4Directions()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        { StopAllCoroutines(); StartCoroutine(Gravity4Direction(Vector2.up)); }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        { StopAllCoroutines(); StartCoroutine(Gravity4Direction(Vector2.down)); }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        { StopAllCoroutines(); StartCoroutine(Gravity4Direction(Vector2.right)); }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        { StopAllCoroutines(); StartCoroutine(Gravity4Direction(Vector2.left)); }
+    }
+
+    IEnumerator Gravity4Direction(Vector2 directions)
+    {
+        _rigidbody2D.gravityScale = 0;
+        _rigidbody2D.velocity = Vector2.zero;
+        _permiteMove = false;
+        yield return new WaitForSeconds(1f);
+
+        Physics2D.gravity = directions * 9.81f; ;
+        _rigidbody2D.gravityScale = 5;
+        _permiteMove = true;
+    }
 
     void InitPlayer()
     {
