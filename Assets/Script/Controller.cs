@@ -52,14 +52,14 @@ public class Controller : MonoBehaviour
         switch(_states)
         {
             case States.ReverseGravity:
-                Jump(true);
+                Gravity();
                 break;
             case States.Doors:
                 
                 break;
 
             default:
-                Jump(false);
+                Jump();
                 break;
         }
     }
@@ -91,21 +91,14 @@ public class Controller : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal") * _speed * Time.deltaTime;
         transform.position += new Vector3(-x, 0);
     }
-    void MovementDontStop()
-    {
-        float x = Input.GetAxisRaw("Horizontal") * _speed * Time.deltaTime;
-
-        if(x > 0) { _moveDirection = Vector2.right; }
-        else if(x < 0) { _moveDirection = Vector2.left; }
-
-        transform.position += _moveDirection * _speed * Time.deltaTime;
-    }
-    void Jump(bool _reverseGravity)
+    void MovementDontStop() => transform.position += _speed * Time.deltaTime * Vector3.right;
+    
+    void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && IsOnFloor())
         {
             _rigidbody2D.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
-           if(_reverseGravity) Gravity(); _shakeController.Shake();
+            
         }
     }
 
@@ -116,7 +109,11 @@ public class Controller : MonoBehaviour
         return raycast;
     }
 
-    void Gravity() { _rigidbody2D.gravityScale *= -1;  _jumpForce *= -1; _rayDirection.y *= -1; }
+    void Gravity() 
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            _rigidbody2D.gravityScale *= -1; 
+    }
     
 
     void initPlayer()
