@@ -15,7 +15,7 @@ public class Controller : MonoBehaviour
     }
 
     [SerializeField] Player_Stats _playerStats;
-
+    ShakeController _shakeController;
     Rigidbody2D _rigidbody2D;
 
     //MOVE
@@ -33,6 +33,7 @@ public class Controller : MonoBehaviour
 
     private void Start()
     {
+        _shakeController = GetComponent<ShakeController>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _rayDirection = Vector2.down;
         _moveDirection = Vector2.right;
@@ -104,7 +105,7 @@ public class Controller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && IsOnFloor())
         {
             _rigidbody2D.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
-           if(_reverseGravity) Gravity();
+           if(_reverseGravity) Gravity(); _shakeController.Shake();
         }
     }
 
