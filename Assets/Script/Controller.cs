@@ -145,6 +145,7 @@ public class Controller : MonoBehaviour
         _rigidbody2D.gravityScale = 0;
         _rigidbody2D.velocity = Vector2.zero;
         _permiteMove = false;
+
         yield return new WaitForSeconds(1f);
 
         Physics2D.gravity = directions * 9.81f; ;
