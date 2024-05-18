@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e5d3401136524c4ebf4b854d55e9473, type: 3}
-  m_Name: PlayerStats
+  m_Script: {fileID: 11500000, guid: da2df7630d2fa614da71a2a0db308fa3, type: 3}
+  m_Name: SoundSelecion
   m_EditorClassIdentifier: 
-  _lifePoints: 10
-  _speed: 5
-  _jumpForce: 15
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
+  myAudio: {fileID: 0}
+  myGroup: {fileID: 3343622515628778778, guid: 0f2addc23cfd1fb4ca5cc4e9a03d2e59, type: 2}
