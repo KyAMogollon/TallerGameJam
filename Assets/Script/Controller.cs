@@ -20,23 +20,21 @@ public class Controller : MonoBehaviour
 
     //MOVE
     float _speed;
-    Vector3 _moveDirection;
     //JUMP
     Vector2 _rayDirection;
     float _jumpForce;
      LayerMask _layer;
-    //
+    
 
     [SerializeField]States _states = States.Default;
 
-    private void Awake() => initPlayer();
+    private void Awake() => InitPlayer();
 
     private void Start()
     {
         _shakeController = GetComponent<ShakeController>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _rayDirection = Vector2.down;
-        _moveDirection = Vector2.right;
     }
 
     void Update()
@@ -116,7 +114,7 @@ public class Controller : MonoBehaviour
     }
     
 
-    void initPlayer()
+    void InitPlayer()
     {
         _speed = _playerStats._speed;
         _jumpForce = _playerStats._jumpForce;
