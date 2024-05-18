@@ -105,10 +105,14 @@ public class Controller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && IsOnFloor())
         {
             _rigidbody2D.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
-           if(_reverseGravity) Gravity(); _shakeController.Shake();
+            if (_reverseGravity)
+            {
+                _shakeController.Shake();
+                Gravity(); 
+            }
+
         }
     }
-
     bool IsOnFloor()
     {
         bool raycast = Physics2D.Raycast(transform.position, _rayDirection, 0.6f, _layer);
