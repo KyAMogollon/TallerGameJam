@@ -99,7 +99,6 @@ public class Controller : MonoBehaviour
             
         }
     }
-
     bool IsOnFloor()
     {
         bool raycast = Physics2D.Raycast(transform.position, _rayDirection, 0.6f, _layer);
