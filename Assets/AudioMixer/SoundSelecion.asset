@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da2df7630d2fa614da71a2a0db308fa3, type: 3}
   m_Name: SoundSelecion
   m_EditorClassIdentifier: 
-  myAudio: {fileID: 0}
+  myAudio: {fileID: 8300000, guid: 2291763756e2a9a4da37ab9c246500d0, type: 3}
   myGroup: {fileID: 3343622515628778778, guid: 0f2addc23cfd1fb4ca5cc4e9a03d2e59, type: 2}
