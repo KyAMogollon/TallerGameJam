@@ -20,10 +20,10 @@ public class Controller : MonoBehaviour
     Rigidbody2D _rigidbody2D;
 
     //MOVE
-    float _speed;
+    [SerializeField]float _speed;
     //JUMP
     Vector2 _rayDirection;
-    float _jumpForce;
+    [SerializeField]float _jumpForce;
      LayerMask _layer;
 
     //Dimension 4 directions
@@ -94,8 +94,9 @@ public class Controller : MonoBehaviour
 
     void Movement()
     {
-        float x = Input.GetAxisRaw("Horizontal") * _speed * Time.deltaTime;
-        transform.position += new Vector3(x, 0);
+        float x = Input.GetAxisRaw("Horizontal") * _speed;
+        //transform.position += new Vector3(x, 0);
+        _rigidbody2D.velocity = new Vector2(x, _rigidbody2D.velocity.y);
     }
     void Eje()
     {

@@ -1735,6 +1735,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerStats: {fileID: 11400000, guid: 93fa9b285d0c1b54992640721950cc7b, type: 2}
+  _speed: 0
+  _jumpForce: 0
   _states: 0
 --- !u!61 &875723114
 BoxCollider2D:
@@ -1745,7 +1747,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 875723110}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 9d225d1e71ac5a344bd358c9aee33f7b, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1797,7 +1799,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 5
-  m_Material: {fileID: 6200000, guid: 9d225d1e71ac5a344bd358c9aee33f7b, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1888,7 +1890,7 @@ GameObject:
   - component: {fileID: 930546717}
   - component: {fileID: 930546716}
   - component: {fileID: 930546715}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Dimension3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2241,7 +2243,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 9d225d1e71ac5a344bd358c9aee33f7b, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -7973,7 +7975,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 9d225d1e71ac5a344bd358c9aee33f7b, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -12621,7 +12623,7 @@ GameObject:
   - component: {fileID: 2116153083}
   - component: {fileID: 2116153082}
   - component: {fileID: 2116153081}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Dimension2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12962,7 +12964,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 9d225d1e71ac5a344bd358c9aee33f7b, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
