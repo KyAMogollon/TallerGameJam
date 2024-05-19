@@ -19,6 +19,8 @@ public class ObjectCollection : MonoBehaviour
     {
         
     }
+
+    public void setPieces(int _pieces) => piecesCollected = _pieces;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Piezas"))

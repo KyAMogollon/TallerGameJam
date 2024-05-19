@@ -17,6 +17,7 @@ public class Controller : MonoBehaviour
         Stop
     }
 
+    ObjectCollection _objects;
     [SerializeField] Player_Stats _playerStats;
     ShakeController _shakeController;
     Rigidbody2D _rigidbody2D;
@@ -31,6 +32,7 @@ public class Controller : MonoBehaviour
     [SerializeField] Transform _ground;
     [SerializeField]float _jumpForce;
      LayerMask _layer;
+    [SerializeField] Vector2 colliderDistance;
     //POSITIONS
     [Header("Position")]
     [SerializeField] List<Transform> _positions = new List<Transform>();
@@ -38,7 +40,7 @@ public class Controller : MonoBehaviour
     int _indexpos=0;
     [Header("SoundList")]
     [SerializeField] SoundSelectionSO[] _sounds;
-
+    
     //Dimension 4 directions
     bool _permiteMove=true;
 
@@ -49,7 +51,7 @@ public class Controller : MonoBehaviour
 
     private void Start()
     {
-
+        _objects = GetComponent<ObjectCollection>();
         _shakeController = GetComponent<ShakeController>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
@@ -58,7 +60,7 @@ public class Controller : MonoBehaviour
 
     void Update()
     {
-
+       Debug.Log( Physics2D.OverlapCapsule(_ground.position, new Vector2(0.22f, 0.08f), CapsuleDirection2D.Horizontal, 0, _layer));
         if (Input.GetKeyDown(KeyCode.Alpha1)) _states = States.Default;
         if (Input.GetKeyDown(KeyCode.Alpha2)) _states = States.LowGravity;
         if (Input.GetKeyDown(KeyCode.Alpha3)) _states = States.PlayerAxis;
@@ -145,7 +147,7 @@ public class Controller : MonoBehaviour
     }
     bool IsOnFloor()
     {
-        bool raycast = Physics2D.OverlapCapsule(_ground.position, new Vector2(0.92f, 0.08f), CapsuleDirection2D.Horizontal,0, _layer);
+        bool raycast = Physics2D.OverlapCapsule(_ground.position, colliderDistance, CapsuleDirection2D.Horizontal,0, _layer);
 
         return raycast;
     }
@@ -202,7 +204,7 @@ public class Controller : MonoBehaviour
         _indexpos++;
         _states = states[nextIndex];
         _rigidbody2D.gravityScale = 5;
-
+        _objects.setPieces(0);
     }
 
     
