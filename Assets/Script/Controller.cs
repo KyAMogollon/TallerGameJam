@@ -22,7 +22,7 @@ public class Controller : MonoBehaviour
     //MOVE
     [SerializeField]float _speed;
     //JUMP
-    Vector2 _rayDirection;
+    [SerializeField] Transform _ground;
     [SerializeField]float _jumpForce;
      LayerMask _layer;
 
@@ -36,10 +36,10 @@ public class Controller : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(Physics2D.gravity);
+
         _shakeController = GetComponent<ShakeController>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _rayDirection = Vector2.down;
+ 
     }
 
     void Update()
@@ -109,13 +109,13 @@ public class Controller : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && IsOnFloor())
         {
-            _rigidbody2D.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+            _rigidbody2D.velocity= new Vector2(_rigidbody2D.velocity.x,_jumpForce);
             
         }
     }
     bool IsOnFloor()
     {
-        bool raycast = Physics2D.Raycast(transform.position, _rayDirection, 0.6f, _layer);
+        bool raycast = Physics2D.OverlapCapsule(_ground.position, new Vector2(0.92f, 0.08f), CapsuleDirection2D.Horizontal,0, _layer);
 
         return raycast;
     }
