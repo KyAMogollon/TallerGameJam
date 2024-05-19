@@ -37,9 +37,9 @@ public class Controller : MonoBehaviour
     [SerializeField] Vector2 colliderDistance;
     //POSITIONS
     [Header("Position")]
-    [SerializeField] List<Transform> _positions = new List<Transform>();
+    [SerializeField] public List<Transform> _positions = new List<Transform>();
     [SerializeField] GameObject _fade;
-    int _indexpos=0;
+    public int _indexpos=0;
 
     [Header("Audios")]
     [SerializeField] FootStepSound _stepSound;
@@ -208,6 +208,7 @@ public class Controller : MonoBehaviour
 
     IEnumerator ChangeDimension(float time)
     {
+        _indexpos++;
         _fade.SetActive(true);
         States[] states = (States[])Enum.GetValues(typeof(States));
 
