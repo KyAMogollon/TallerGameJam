@@ -15,7 +15,6 @@ public class FootStepSound : MonoBehaviour
     {
         if (!audioSource.isPlaying) // Asegúrate de que no se superpongan los sonidos
         {
-            Debug.Log("Reproduciendo el sonido");
             audioSource.PlayOneShot(footstepClip);
         }
     }

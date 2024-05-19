@@ -35,9 +35,9 @@ public class Controller : MonoBehaviour
     [SerializeField] Vector2 colliderDistance;
     //POSITIONS
     [Header("Position")]
-    [SerializeField] List<Transform> _positions = new List<Transform>();
+    [SerializeField] public List<Transform> _positions = new List<Transform>();
     [SerializeField] GameObject _fade;
-    int _indexpos=0;
+    public int _indexpos=0;
 
     [Header("Audios")]
     [SerializeField] FootStepSound _stepSound;
@@ -61,7 +61,7 @@ public class Controller : MonoBehaviour
 
     void Update()
     {
-       Debug.Log( Physics2D.OverlapCapsule(_ground.position, new Vector2(0.22f, 0.08f), CapsuleDirection2D.Horizontal, 0, _layer));
+       //Debug.Log( Physics2D.OverlapCapsule(_ground.position, new Vector2(0.22f, 0.08f), CapsuleDirection2D.Horizontal, 0, _layer));
         if (Input.GetKeyDown(KeyCode.Alpha1)) _states = States.Default;
         if (Input.GetKeyDown(KeyCode.Alpha2)) _states = States.LowGravity;
         if (Input.GetKeyDown(KeyCode.Alpha3)) _states = States.PlayerAxis;
@@ -190,6 +190,7 @@ public class Controller : MonoBehaviour
 
     IEnumerator ChangeDimension(float time)
     {
+        _indexpos++;
         _fade.SetActive(true);
         States[] states = (States[])Enum.GetValues(typeof(States));
 
@@ -203,7 +204,6 @@ public class Controller : MonoBehaviour
         
         yield return new WaitForSeconds(1f);
         transform.position = _positions[_indexpos].position;
-        _indexpos++;
         _states = states[nextIndex];
         _rigidbody2D.gravityScale = 5;
         _objects.setPieces(0);
