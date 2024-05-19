@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lifePoints: 10
   _speed: 5
-  _jumpForce: 15
+  _jumpForce: 18
   _layer:
     serializedVersion: 2
     m_Bits: 8

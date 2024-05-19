@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
+    [SerializeField] GameObject[] portales; 
+
    public enum States
     {
         Default,
@@ -61,7 +63,23 @@ public class Controller : MonoBehaviour
 
     void Update()
     {
-        
+        if(_objects.getP() == 0)
+        {
+            for (int i = 0; i < portales.Length; i++)
+            {
+                portales[i].SetActive(false);
+            }
+        }
+        if (_objects.getP() == 3)
+        {
+            for (int i = 0; i < portales.Length; i++)
+            {
+                portales[i].SetActive(true);
+            }
+        }
+
+
+
         if (Input.GetKeyDown(KeyCode.Alpha1)) _states = States.Default;
         if (Input.GetKeyDown(KeyCode.Alpha2)) _states = States.LowGravity;
         if (Input.GetKeyDown(KeyCode.Alpha3)) _states = States.PlayerAxis;
@@ -199,11 +217,10 @@ public class Controller : MonoBehaviour
 
         
         _states = States.Stop;
-        yield return new WaitForSeconds(1f);
-        
-        yield return new WaitForSeconds(1f);
-        transform.position = _positions[_indexpos].position;
         _indexpos++;
+        yield return new WaitForSeconds(2f);
+        transform.position = _positions[_indexpos].position;
+        
         _states = states[nextIndex];
         _rigidbody2D.gravityScale = 5;
         _objects.setPieces(0);
@@ -234,6 +251,11 @@ public class Controller : MonoBehaviour
         if (collision.CompareTag("Door"))
         {
             StartCoroutine(ChangeDimension(2f));
+        }
+
+        if(collision.CompareTag("deadzone"))
+        {
+            transform.position = _positions[_indexpos].position;
         }
     }
 
