@@ -38,11 +38,12 @@ public class Controller : MonoBehaviour
     [SerializeField] List<Transform> _positions = new List<Transform>();
     [SerializeField] GameObject _fade;
     int _indexpos=0;
-    [Header("SoundList")]
-    [SerializeField] SoundSelectionSO[] _sounds;
-    
+
+    [Header("Audios")]
+    [SerializeField] FootStepSound _stepSound;
+    [SerializeField] AudioSource _jumpSound;
     //Dimension 4 directions
-    bool _permiteMove=true;
+    bool _permiteMove =true;
 
     [Header("Estados")]
     public States _states = States.Default;
@@ -123,9 +124,9 @@ public class Controller : MonoBehaviour
         if (IsOnFloor())
         {
             _anim.SetBool("walk", x != 0);
-            if (x != 0)
+            if(x != 0)
             {
-                _sounds[0].StartSoundSelection();
+                _stepSound.PlayFootstepSound();
             }
         }
     }
@@ -141,8 +142,8 @@ public class Controller : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && IsOnFloor())
         {
+            _jumpSound.Play();
             _rigidbody2D.velocity= new Vector2(_rigidbody2D.velocity.x,_jumpForce);
-            
         }
     }
     bool IsOnFloor()
@@ -156,6 +157,7 @@ public class Controller : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            _jumpSound.Play();
             _rigidbody2D.gravityScale *= -1;
             _shakeController.Shake();
         }
