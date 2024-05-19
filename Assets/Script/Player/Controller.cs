@@ -61,7 +61,7 @@ public class Controller : MonoBehaviour
 
     void Update()
     {
-       Debug.Log( Physics2D.OverlapCapsule(_ground.position, new Vector2(0.22f, 0.08f), CapsuleDirection2D.Horizontal, 0, _layer));
+        
         if (Input.GetKeyDown(KeyCode.Alpha1)) _states = States.Default;
         if (Input.GetKeyDown(KeyCode.Alpha2)) _states = States.LowGravity;
         if (Input.GetKeyDown(KeyCode.Alpha3)) _states = States.PlayerAxis;
