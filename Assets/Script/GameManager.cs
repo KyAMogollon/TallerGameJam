@@ -10,11 +10,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text piecesText;
     [SerializeField] GameObject panelPause;
     // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
         _player = FindObjectOfType<Controller>();
         _player.RestartState();
+        _player.setIndexPos(0);
     }
+
 
     // Update is called once per frame
     void Update()

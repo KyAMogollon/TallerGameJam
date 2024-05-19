@@ -20,15 +20,19 @@ public class Controller : MonoBehaviour
     [SerializeField] Player_Stats _playerStats;
     ShakeController _shakeController;
     Rigidbody2D _rigidbody2D;
+    Animator _anim;
 
     //MOVE
     [SerializeField]float _speed;
+    float x;
     //JUMP
     [SerializeField] Transform _ground;
     [SerializeField]float _jumpForce;
      LayerMask _layer;
     //POSITIONS
     [SerializeField] List<Transform> _positions = new List<Transform>();
+    [SerializeField] GameObject _fade;
+    int _indexpos=0;
 
     //Dimension 4 directions
     bool _permiteMove=true;
@@ -43,6 +47,7 @@ public class Controller : MonoBehaviour
 
         _shakeController = GetComponent<ShakeController>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _anim = GetComponent<Animator>();
  
     }
 
@@ -59,6 +64,10 @@ public class Controller : MonoBehaviour
 
         switch(_states)
         {
+            case States.LowGravity:
+                _rigidbody2D.gravityScale = 2;
+                Jump();
+                break;
             case States.ReverseGravity:
                 Gravity();
                 break;
@@ -67,6 +76,7 @@ public class Controller : MonoBehaviour
                 break;
 
             case States.Stop:
+                _rigidbody2D.gravityScale = 0;
                 break;
 
             default:
@@ -85,11 +95,10 @@ public class Controller : MonoBehaviour
             case States.MoveDontStop:
                 MovementDontStop();
                 break;
-            case States.Gravity4Directions:
-                if (_permiteMove) Movement();
-                break;
+  
 
             case States.Stop:
+                _rigidbody2D.velocity = Vector2.zero;
                 break;
             default:
                  Movement();
@@ -100,14 +109,17 @@ public class Controller : MonoBehaviour
 
     void Movement()
     {
-        float x = Input.GetAxisRaw("Horizontal") * _speed;
+         x = Input.GetAxisRaw("Horizontal") * _speed;
         //transform.position += new Vector3(x, 0);
         _rigidbody2D.velocity = new Vector2(x, _rigidbody2D.velocity.y);
+        PlayerDirection();
+        _anim.SetBool("walk", x != 0);
     }
     void Eje()
     {
-        float x = Input.GetAxisRaw("Horizontal") * _speed * Time.deltaTime;
+         x = Input.GetAxisRaw("Horizontal") * _speed * Time.deltaTime;
         transform.position += new Vector3(-x, 0);
+        PlayerDirection();
     }
     void MovementDontStop() => transform.position += _speed * Time.deltaTime * Vector3.right;
     
@@ -162,7 +174,7 @@ public class Controller : MonoBehaviour
 
     IEnumerator ChangeDimension(float time)
     {
-        
+        _fade.SetActive(true);
         States[] states = (States[])Enum.GetValues(typeof(States));
 
         int currentIndex = Array.IndexOf(states, _states);
@@ -171,18 +183,42 @@ public class Controller : MonoBehaviour
 
         
         _states = States.Stop;
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(1f);
+        
+        yield return new WaitForSeconds(1f);
+        transform.position = _positions[_indexpos].position;
+        _indexpos++;
         _states = states[nextIndex];
+        _rigidbody2D.gravityScale = 5;
 
     }
 
     
     public void RestartState() => _states = States.Default;
+
+    public void setIndexPos(int pos)
+    {
+        _indexpos = pos;
+    }
+
+    void PlayerDirection()
+    {
+        if (x > 0) transform.localScale = new Vector3(1, 1, 1);
+        else if (x < 0) transform.localScale = new Vector3(-1, 1, 1);
+    }
     void InitPlayer()
     {
         _speed = _playerStats._speed;
         _jumpForce = _playerStats._jumpForce;
         _layer = _playerStats._layer;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Door"))
+        {
+            StartCoroutine(ChangeDimension(2f));
+        }
     }
 
 }

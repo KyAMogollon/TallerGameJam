@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Piezas
   - Targets
+  - Door
   layers:
   - Default
   - TransparentFX

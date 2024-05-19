@@ -8,7 +8,7 @@ public class Fade : MonoBehaviour
     private void Awake() => anim = GetComponent<Animator>();
     private void OnEnable()
     {
-        
+        StartCoroutine(FadeOver());
     }
 
     IEnumerator FadeOver()
