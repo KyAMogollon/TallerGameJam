@@ -1294,7 +1294,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.46, y: -1.57, z: -10}
+  m_LocalPosition: {x: 33.46, y: 3.36, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7609,6 +7609,7 @@ GameObject:
   - component: {fileID: 1013407133}
   - component: {fileID: 1013407132}
   - component: {fileID: 1013407131}
+  - component: {fileID: 1013407134}
   m_Layer: 5
   m_Name: Fade
   m_TagString: Untagged
@@ -7694,6 +7695,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1013407129}
   m_CullTransparentMesh: 1
+--- !u!114 &1013407134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013407129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e9e6fa235bf1a34180cda5770204104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1069741400
 GameObject:
   m_ObjectHideFlags: 0
@@ -11296,7 +11309,7 @@ Transform:
   m_GameObject: {fileID: 1300462087}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.46, y: -1.57, z: 0}
+  m_LocalPosition: {x: 33.46, y: 3.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11318,12 +11331,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   piecesToCollected: 3
   _gm: {fileID: 1610597599}
-  _audioSource: {fileID: 0}
+  _audioSource: {fileID: 1300462095}
   _audioClip:
   - {fileID: 8300000, guid: 87cca93f515d95f4e9e13f55e6e6cd9a, type: 3}
   - {fileID: 8300000, guid: 1c3884b80c6004a48b2ec761175f074d, type: 3}
   - {fileID: 8300000, guid: 603c6a14f305c994c8484e13d79d7638, type: 3}
-  - {fileID: 8300000, guid: a906092c9d1986943ba934d7126a0c9e, type: 3}
 --- !u!114 &1300462090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11348,8 +11360,6 @@ MonoBehaviour:
   _stepSound: {fileID: 1155842097}
   _jumpSound: {fileID: 547487426}
   _states: 0
-  capsuleSize: {x: 0.61, y: 0.08}
-  capsuleDirection: 1
 --- !u!61 &1300462091
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11420,7 +11430,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!95 &1300462093
 Animator:
@@ -12681,7 +12691,7 @@ Transform:
   m_GameObject: {fileID: 1874269548}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.46, y: -1.57, z: -10}
+  m_LocalPosition: {x: 33.46, y: 3.36, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17118,11 +17128,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3000958689001728204, guid: 2f7e90994c15ffa46b0f19e7a64fd31b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.73
+      value: 34.81
       objectReference: {fileID: 0}
     - target: {fileID: 3000958689001728204, guid: 2f7e90994c15ffa46b0f19e7a64fd31b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.7626989
+      value: 3.44
       objectReference: {fileID: 0}
     - target: {fileID: 3000958689001728204, guid: 2f7e90994c15ffa46b0f19e7a64fd31b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -17182,7 +17192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7959309742090894951, guid: 2f7e90994c15ffa46b0f19e7a64fd31b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
