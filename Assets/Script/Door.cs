@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public List<ListaDeMovimento> listaDeMovimentos = new List<ListaDeMovimento>();
-    public int currentIndex;
+    public List<ListaDeMovimento> listaDeMovimentos = new ();
+    public int currentIndex=0;
     public bool canOpen=false;
     // Start is called before the first frame update
     void Start()
@@ -21,22 +21,16 @@ public class Door : MonoBehaviour
         {
             if (currentIndex < listaDeMovimentos.Count)
             {
-                if (Input.GetKeyDown(listaDeMovimentos[currentIndex].movementKey))
+                 if(Input.GetKeyDown(listaDeMovimentos[currentIndex].movementKey))
                 {
                     Debug.Log("Executed: " + listaDeMovimentos[currentIndex].movementName);
                     currentIndex++;
+                      
                 }
-                else
+                 else if(Input.anyKeyDown)
                 {
-                    foreach (KeyCode key in System.Enum.GetValues(typeof(KeyCode)))
-                    {
-                        if (Input.GetKeyDown(key) && key != listaDeMovimentos[currentIndex].movementKey)
-                        {
-                            Debug.Log("Incorrect key pressed. Restarting sequence.");
-                            currentIndex = 0;
-                            break;
-                        }
-                    }
+                    Debug.Log("Incorrect key pressed. Restarting sequence.");
+                    currentIndex = 0;
                 }
             }
         }
