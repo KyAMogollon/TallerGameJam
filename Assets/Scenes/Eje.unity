@@ -11148,12 +11148,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerStats: {fileID: 11400000, guid: 93fa9b285d0c1b54992640721950cc7b, type: 2}
   _speed: 0
-  _ground: {fileID: 0}
+  _ground: {fileID: 624281763}
   _jumpForce: 0
   _positions:
   - {fileID: 618105365}
   - {fileID: 249737296}
   _fade: {fileID: 1013407129}
+  _sounds:
+  - {fileID: 11400000, guid: 0fcd4b68ef028db4a8a8d9fa13aafcc4, type: 2}
   _states: 0
 --- !u!61 &1300462091
 BoxCollider2D:

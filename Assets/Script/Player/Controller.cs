@@ -23,21 +23,26 @@ public class Controller : MonoBehaviour
     Animator _anim;
 
     //MOVE
+    [Header ("Move")]
     [SerializeField]float _speed;
     float x;
     //JUMP
+    [Header("jump")]
     [SerializeField] Transform _ground;
     [SerializeField]float _jumpForce;
      LayerMask _layer;
     //POSITIONS
+    [Header("Position")]
     [SerializeField] List<Transform> _positions = new List<Transform>();
     [SerializeField] GameObject _fade;
     int _indexpos=0;
+    [Header("SoundList")]
+    [SerializeField] SoundSelectionSO[] _sounds;
 
     //Dimension 4 directions
     bool _permiteMove=true;
-    
 
+    [Header("Estados")]
     public States _states = States.Default;
 
     private void Awake() => InitPlayer();
@@ -113,7 +118,14 @@ public class Controller : MonoBehaviour
         //transform.position += new Vector3(x, 0);
         _rigidbody2D.velocity = new Vector2(x, _rigidbody2D.velocity.y);
         PlayerDirection();
-        _anim.SetBool("walk", x != 0);
+        if (IsOnFloor())
+        {
+            _anim.SetBool("walk", x != 0);
+            if (x != 0)
+            {
+                _sounds[0].StartSoundSelection();
+            }
+        }
     }
     void Eje()
     {
