@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     [Header ("ScripTableObjects")]
@@ -44,5 +44,13 @@ public class MenuManager : MonoBehaviour
         {
             buttons.gameObject.SetActive(true);
         }
+    }
+    public void NextScene()
+    {
+        SceneManager.LoadScene("Eje");
+    }
+    public void Leave()
+    {
+        Application.Quit();
     }
 }
