@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
-    enum States
+   public enum States
     {
         Default,
         LowGravity,
@@ -12,7 +13,8 @@ public class Controller : MonoBehaviour
         MoveDontStop,
         ReverseGravity,
         Doors,
-        Gravity4Directions
+        Gravity4Directions,
+        Stop
     }
 
     [SerializeField] Player_Stats _playerStats;
@@ -25,12 +27,14 @@ public class Controller : MonoBehaviour
     [SerializeField] Transform _ground;
     [SerializeField]float _jumpForce;
      LayerMask _layer;
+    //POSITIONS
+    [SerializeField] List<Transform> _positions = new List<Transform>();
 
     //Dimension 4 directions
     bool _permiteMove=true;
     
 
-    [SerializeField]States _states = States.Default;
+    public States _states = States.Default;
 
     private void Awake() => InitPlayer();
 
@@ -61,9 +65,8 @@ public class Controller : MonoBehaviour
             case States.Doors:
                 
                 break;
-            case States.Gravity4Directions:
-                Jump();
-                Corrutine4Directions();
+
+            case States.Stop:
                 break;
 
             default:
@@ -84,6 +87,9 @@ public class Controller : MonoBehaviour
                 break;
             case States.Gravity4Directions:
                 if (_permiteMove) Movement();
+                break;
+
+            case States.Stop:
                 break;
             default:
                  Movement();
@@ -129,7 +135,7 @@ public class Controller : MonoBehaviour
         }
     }
     
-    void Corrutine4Directions()
+   /* void Corrutine4Directions()
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
         { StopAllCoroutines(); StartCoroutine(Gravity4Direction(Vector2.up)); }
@@ -152,8 +158,26 @@ public class Controller : MonoBehaviour
         Physics2D.gravity = directions * 9.81f; ;
         _rigidbody2D.gravityScale = 5;
         _permiteMove = true;
+    }*/
+
+    IEnumerator ChangeDimension(float time)
+    {
+        
+        States[] states = (States[])Enum.GetValues(typeof(States));
+
+        int currentIndex = Array.IndexOf(states, _states);
+
+        int nextIndex = (currentIndex + 1) % states.Length;
+
+        
+        _states = States.Stop;
+        yield return new WaitForSeconds(time);
+        _states = states[nextIndex];
+
     }
 
+    
+    public void RestartState() => _states = States.Default;
     void InitPlayer()
     {
         _speed = _playerStats._speed;
@@ -161,5 +185,4 @@ public class Controller : MonoBehaviour
         _layer = _playerStats._layer;
     }
 
-   
 }

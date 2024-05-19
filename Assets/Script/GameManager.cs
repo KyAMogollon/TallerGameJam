@@ -6,12 +6,14 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
+    Controller _player;
     [SerializeField] TMP_Text piecesText;
     [SerializeField] GameObject panelPause;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _player = FindObjectOfType<Controller>();
+        _player.RestartState();
     }
 
     // Update is called once per frame
