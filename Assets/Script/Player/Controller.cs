@@ -50,6 +50,7 @@ public class Controller : MonoBehaviour
 
     [Header("Estados")]
     public States _states = States.Default;
+    [SerializeField] GameObject narrativaFinal;
 
     private void Awake()
     {
@@ -258,6 +259,7 @@ public class Controller : MonoBehaviour
         if (collision.CompareTag("Door"))
         {
             StartCoroutine(ChangeDimension(2f));
+            narrativaFinal.SetActive(true);
         }
 
         if(collision.CompareTag("deadzone"))
