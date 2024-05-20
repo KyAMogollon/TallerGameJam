@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour
 {
-    [SerializeField] GameObject[] portales; 
-
+    [SerializeField] GameObject[] portales;
+    GameManager _game;
    public enum States
     {
         Default,
@@ -50,15 +51,19 @@ public class Controller : MonoBehaviour
     [Header("Estados")]
     public States _states = States.Default;
 
-    private void Awake() => InitPlayer();
-
-    private void Start()
+    private void Awake()
     {
+        _game = FindObjectOfType<GameManager>();
         _objects = GetComponent<ObjectCollection>();
         _shakeController = GetComponent<ShakeController>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
- 
+    }
+
+    private void Start()
+    {
+        
+        InitPlayer();
     }
 
     void Update()
@@ -77,16 +82,6 @@ public class Controller : MonoBehaviour
                 portales[i].SetActive(true);
             }
         }
-
-
-
-        if (Input.GetKeyDown(KeyCode.Alpha1)) _states = States.Default;
-        if (Input.GetKeyDown(KeyCode.Alpha2)) _states = States.LowGravity;
-        if (Input.GetKeyDown(KeyCode.Alpha3)) _states = States.PlayerAxis;
-        if (Input.GetKeyDown(KeyCode.Alpha4)) _states = States.MoveDontStop;
-        if (Input.GetKeyDown(KeyCode.Alpha5)) _states = States.ReverseGravity;
-        if (Input.GetKeyDown(KeyCode.Alpha6)) _states = States.Doors;
-        if (Input.GetKeyDown(KeyCode.Alpha7)) _states = States.Gravity4Directions;
 
         switch(_states)
         {
@@ -135,6 +130,7 @@ public class Controller : MonoBehaviour
 
     void Movement()
     {
+
          x = Input.GetAxisRaw("Horizontal") * _speed;
         //transform.position += new Vector3(x, 0);
         _rigidbody2D.velocity = new Vector2(x, _rigidbody2D.velocity.y);
@@ -220,11 +216,20 @@ public class Controller : MonoBehaviour
         _states = States.Stop;
         _indexpos++;
         yield return new WaitForSeconds(2f);
-        transform.position = _positions[_indexpos].position;
-        
-        _states = states[nextIndex];
-        _rigidbody2D.gravityScale = 5;
-        _objects.setPieces(0);
+        if(_indexpos<3)
+        {
+            transform.position = _positions[_indexpos].position;
+            _states = states[nextIndex];
+            _rigidbody2D.gravityScale = 5;
+            _objects.setPieces(0);
+            _game.UpdatePiecesText(_objects.getP(), 3);
+        }
+        else
+        {
+            SceneManager.LoadScene("Menu");
+            _objects.setPieces(0);
+        }
+       
     }
 
     
@@ -240,11 +245,12 @@ public class Controller : MonoBehaviour
         if (x > 0) transform.localScale = new Vector3(1, 1, 1);
         else if (x < 0) transform.localScale = new Vector3(-1, 1, 1);
     }
-    void InitPlayer()
+    public void InitPlayer()
     {
         _speed = _playerStats._speed;
         _jumpForce = _playerStats._jumpForce;
         _layer = _playerStats._layer;
+        _rigidbody2D.gravityScale = 5;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

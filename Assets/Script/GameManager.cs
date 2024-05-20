@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
         _player = FindObjectOfType<Controller>();
         _player.RestartState();
         _player.setIndexPos(0);
+        _player.InitPlayer();
     }
 
 
