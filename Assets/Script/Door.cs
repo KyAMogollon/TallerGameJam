@@ -15,29 +15,6 @@ public class Door : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (canOpen)
-        {
-            if (currentIndex < listaDeMovimentos.Count)
-            {
-                 if(Input.GetKeyDown(listaDeMovimentos[currentIndex].movementKey))
-                {
-                    Debug.Log("Executed: " + listaDeMovimentos[currentIndex].movementName);
-                    currentIndex++;
-                      
-                }
-                 else if(Input.anyKeyDown)
-                {
-                    Debug.Log("Incorrect key pressed. Restarting sequence.");
-                    currentIndex = 0;
-                }
-            }
-        }
-        if (currentIndex >= listaDeMovimentos.Count)
-        {
-            Debug.Log("Abro la puerta");
-        }
-    }
+ 
 
 }
