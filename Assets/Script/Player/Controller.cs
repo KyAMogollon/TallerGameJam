@@ -208,7 +208,7 @@ public class Controller : MonoBehaviour
 
     IEnumerator ChangeDimension(float time)
     {
-        _indexpos++;
+        
         _fade.SetActive(true);
         States[] states = (States[])Enum.GetValues(typeof(States));
 
